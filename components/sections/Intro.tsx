@@ -18,39 +18,37 @@ const skills = [
 export default function Intro() {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-0">
-      <div className="grid md:grid-cols-[3fr_2fr] gap-12">
+      <div className="grid md:grid-cols-[3fr_2fr] gap-8 md:gap-12">
 
-        {/* =========================================
-            LEFT COLUMN: TEXT CONTENT
-           ========================================= */}
+        {/* left column text content */}
         <div className="flex flex-col">
 
-          {/* --- HERO SECTION --- */}
-          <section id="hero" className="flex flex-col justify-center pt-48 md:pt-64 pb-48">
+          {/* hero section */}
+          <section id="hero" className="flex flex-col justify-center pt-32 md:pt-64 pb-20 md:pb-48">
             <div className="space-y-6">
               <motion.h1
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-bold tracking-tight text-foreground"
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+                className="text-4xl md:text-7xl font-bold tracking-tight text-foreground"
               >
                 hi, <span className="text-accent">benny</span> here.
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ 
-                    duration: 0.8, 
+                    duration: 0.5, 
                     repeat: Infinity, 
                     repeatType: "reverse"
                   }}
-                  className="inline-block w-[3px] h-10 md:h-16 text-accent ml-2 align-bottom md:align-middle"
+                  className="inline-block w-[3px] h-8 md:h-16 text-accent ml-2 align-bottom md:align-middle"
                 />
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
                 className="text-muted text-lg md:text-xl leading-relaxed max-w-lg"
               >
                 I&apos;m a <span className="text-accent">Technical Lead</span> @ WebbHeads and CS Graduate from GITAM University. 
@@ -61,7 +59,7 @@ export default function Intro() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
                 className="pt-4"
               >
                 <a
@@ -74,22 +72,19 @@ export default function Intro() {
               </motion.div>
             </div>
             
-            {/* MOBILE IMAGE */}
-            <div className="md:hidden mt-12 relative w-full h-[400px] rounded-2xl overflow-hidden">
-                <Image src="/me.jpg" fill className="object-cover" alt="Benny" />
-            </div>
+            {/* MOBILE IMAGE WAS HERE - REMOVED */}
           </section>
 
-          {/* --- ABOUT SECTION --- */}
-          <section id="about" className="flex flex-col justify-center pt-12 pb-30">
+          {/* about section */}
+          <section id="about" className="flex flex-col justify-center pt-12 pb-24 md:pb-30">
              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
              >
                 <div className="flex items-center gap-4 mb-12">
-                  <h2 className="text-4xl font-bold text-foreground">
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground">
                     <span className="mr-4 font-mono text-4xl">/</span>
                     about me
                   </h2>
@@ -125,14 +120,13 @@ export default function Intro() {
 
         </div>
 
-        {/* =========================================
-            RIGHT COLUMN: STICKY IMAGE
-           ========================================= */}
+        {/* right column sticky image */}
+        {/* hidden on mobile (hidden), visible on medium screens and up (md:flex) */}
         <div className="hidden md:flex sticky top-0 h-screen items-center justify-end">
            <motion.div 
              initial={{ opacity: 0, scale: 0.9 }}
              animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.5 }}
+             transition={{ duration: 0.5, ease: "backOut" }}
              className="relative w-[350px] h-[450px] rounded-2xl overflow-hidden shadow-2xl group"
            >
               <Image 

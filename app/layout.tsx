@@ -18,7 +18,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Ben | Software Developer",
+  title: "Benny",
   description: "Portfolio of a software developer specializing in Next.js and React.",
 };
 

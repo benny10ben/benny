@@ -4,14 +4,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, Folder, ChevronLeft, ChevronRight, Lock } from "lucide-react";
 
-// --- FEATURED: PROFESSIONAL WORK ---
+// featured work - these go in the big carousel at the top
 const featuredProjects = [
   {
     title: "Real Estate CRM Portal",
     label: "Professional Work @ WebbHeads",
     description: "A comprehensive CRM platform architected for WebbHeads to manage client relationships, property listings, and sales pipelines. I led the technical team in building the frontend architecture and optimizing database performance.",
     tech: "NEXT.JS, TAILWIND, SUPABASE",
-    // Use your CRM screenshot here.
     image: "/project-crm.jpg", 
     isPrivate: true, 
     links: { 
@@ -31,7 +30,7 @@ const featuredProjects = [
   },
 ];
 
-// --- GRID: YOUR OPEN SOURCE REPOS ---
+// personal/open source stuff for the bottom grid
 const otherProjects = [
   {
     title: "Periodt",
@@ -65,10 +64,10 @@ const otherProjects = [
   },
 ];
 
-// --- SLIDE ANIMATION VARIANTS ---
+// animation settings for the slide transitions
 const slideVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 1000 : -1000,
+    x: direction > 0 ? 500 : -500, // reduced distance for faster feel
     opacity: 0,
   }),
   center: {
@@ -78,7 +77,7 @@ const slideVariants = {
   },
   exit: (direction: number) => ({
     zIndex: 0,
-    x: direction < 0 ? 1000 : -1000,
+    x: direction < 0 ? 500 : -500,
     opacity: 0,
   }),
 };
@@ -87,7 +86,7 @@ export default function Projects() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  // SAFETY CHECK
+  // prevent crash if the array is empty for some reason
   if (!featuredProjects[current]) {
     setCurrent(0);
     return null;
@@ -95,6 +94,7 @@ export default function Projects() {
 
   const showArrows = featuredProjects.length > 1;
 
+  // carousel navigation handlers
   const nextSlide = () => {
     setDirection(1);
     setCurrent((prev) => (prev === featuredProjects.length - 1 ? 0 : prev + 1));
@@ -105,32 +105,35 @@ export default function Projects() {
     setCurrent((prev) => (prev === 0 ? featuredProjects.length - 1 : prev - 1));
   };
 
+  // jump directly to a specific project dot
   const jumpToSlide = (index: number) => {
     setDirection(index > current ? 1 : -1);
     setCurrent(index);
   };
 
   return (
-    <section id="projects" className="max-w-6xl mx-auto py-24 px-6 md:px-0">
+    <section id="projects" className="max-w-6xl mx-auto py-10 px-6 md:px-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        {/* HEADER: / projects */}
+        {/* section title */}
         <div className="flex items-center gap-4 mb-12">
-          <h2 className="text-4xl font-bold text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
             <span className="mr-4 font-mono text-4xl">/</span>
             projects
           </h2>
           <div className="h-[1px] bg-zinc-800 flex-1 max-w-sm ml-4" />
         </div>
 
-        {/* --- PART 1: FEATURED CAROUSEL --- */}
-        <div className="relative h-[500px] w-full bg-[#1f2838] rounded-xl overflow-hidden shadow-2xl border border-zinc-800 group">
+        {/* Featured Carousel 
+            using min-h-[500px] instead of fixed h-[500px] so it grows on mobile if text is long 
+        */}
+        <div className="relative min-h-[500px] h-auto w-full bg-[#1f2838] rounded-xl overflow-hidden shadow-2xl border border-zinc-800 group">
           
-          <AnimatePresence initial={false} custom={direction}>
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={current}
               custom={direction}
@@ -138,42 +141,44 @@ export default function Projects() {
               initial="enter"
               animate="center"
               exit="exit"
+              // stiffer spring = snappier animation
               transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
+                x: { type: "spring", stiffness: 400, damping: 40 },
                 opacity: { duration: 0.2 },
               }}
-              className="absolute inset-0"
+              // flex layout ensures content is centered but safe from edges
+              className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 md:p-12 z-10"
             >
-              {/* Background Overlay */}
-              <div className="absolute inset-0 bg-zinc-900/80" />
+              {/* background overlay for better text contrast */}
+              <div className="absolute inset-0 bg-zinc-900/80 -z-10" />
               
-              {/* Optional: Real Image Background */}
+              {/* background image if it exists */}
               {featuredProjects[current].image && (
                  // eslint-disable-next-line @next/next/no-img-element
                  <img 
                    src={featuredProjects[current].image} 
                    alt={featuredProjects[current].title}
-                   className="absolute inset-0 w-full h-full object-cover opacity-20"
+                   className="absolute inset-0 w-full h-full object-cover opacity-20 -z-20"
                  /> 
               )}
 
-              {/* Centered Content */}
-              <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
+              {/* slide content */}
+              <div className="relative z-10 flex flex-col items-center w-full max-w-3xl">
                 <p className="text-accent font-mono text-sm mb-4">
                   {featuredProjects[current].label}
                 </p>
                 
-                <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                <h3 className="text-3xl md:text-5xl font-bold text-white mb-6">
                   {featuredProjects[current].title}
                 </h3>
                 
-                <div className="bg-[#1f2838]/90 backdrop-blur-sm p-6 rounded-lg max-w-2xl shadow-lg border border-zinc-700/50">
-                  <p className="text-zinc-300 leading-relaxed text-lg">
+                <div className="bg-[#1f2838]/90 backdrop-blur-sm p-6 rounded-lg shadow-lg border border-zinc-700/50">
+                  <p className="text-zinc-300 leading-relaxed text-base md:text-lg">
                     {featuredProjects[current].description}
                   </p>
                 </div>
                 
-                <p className="text-accent font-mono text-sm mt-8 tracking-wider">
+                <p className="text-accent font-mono text-xs md:text-sm mt-8 tracking-wider uppercase">
                   {featuredProjects[current].tech}
                 </p>
                 
@@ -199,18 +204,18 @@ export default function Projects() {
             </motion.div>
           </AnimatePresence>
 
-          {/* ARROWS INSIDE THE CARD */}
+          {/* navigation arrows */}
           {showArrows && (
             <>
               <button 
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-accent hover:text-black rounded-full text-white transition-all z-20"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-accent hover:text-black rounded-full text-white transition-all z-20"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button 
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-accent hover:text-black rounded-full text-white transition-all z-20"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-accent hover:text-black rounded-full text-white transition-all z-20"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
@@ -218,17 +223,17 @@ export default function Projects() {
           )}
         </div>
 
-        {/* DASH INDICATORS (UPDATED TO RECTANGULAR BARS) */}
+        {/* pagination indicators */}
         {showArrows && (
           <div className="flex justify-center gap-4 mt-8">
             {featuredProjects.map((_, index) => (
                 <button
                 key={index}
                 onClick={() => jumpToSlide(index)}
-                className={`h-1 transition-all duration-300  ${
+                className={`h-1 transition-all duration-300 rounded-full ${
                     current === index 
-                    ? "w-12 bg-[#6c8fff]" // <--- Change this to 'bg-highlight' (Teal)
-                    : "w-12 bg-zinc-600 hover:bg-zinc-500" // Inactive: Grey
+                    ? "w-12 bg-[#6c8fff]" 
+                    : "w-12 bg-zinc-600 hover:bg-zinc-500"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
                 />
@@ -236,7 +241,7 @@ export default function Projects() {
             </div>
         )}
 
-        {/* --- PART 2: OPEN SOURCE GRID --- */}
+        {/* grid for open source / smaller projects */}
         <div className="mt-24">
             <h3 className="text-2xl font-bold text-foreground mb-8 text-center md:text-center">
                 open source & personal
@@ -249,17 +254,17 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-[#1f2838] p-8 rounded-lg hover:-translate-y-2 transition-transform duration-300 group shadow-lg flex flex-col h-full"
+                transition={{ delay: index * 0.05, duration: 0.3 }}
+                className="bg-[#1f2838] p-8 rounded-lg hover:-translate-y-2 transition-transform duration-200 group shadow-lg flex flex-col h-full border border-transparent hover:border-zinc-700"
                 >
                 <div className="flex justify-between items-center mb-8">
                     <Folder className="w-10 h-10 text-accent" />
                     <div className="flex gap-4">
-                    <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-accent">
+                    <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-accent transition-colors">
                         <Github className="w-5 h-5" />
                     </a>
                     {project.links.external !== "#" && (
-                        <a href={project.links.external} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-accent">
+                        <a href={project.links.external} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-accent transition-colors">
                         <ExternalLink className="w-5 h-5" />
                         </a>
                     )}
@@ -269,7 +274,7 @@ export default function Projects() {
                 <h4 className="text-xl font-bold text-zinc-100 mb-4 group-hover:text-accent transition-colors">
                     {project.title}
                 </h4>
-                <p className="text-zinc-400 text-lg md:text-l leading-relaxed mb-8 flex-grow">
+                <p className="text-zinc-400 text-lg md:text-base leading-relaxed mb-8 flex-grow">
                     {project.description}
                 </p>
 

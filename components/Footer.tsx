@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="py-10 text-center text-sm text-muted/60 bg-background relative z-10">
+    // reducing padding slightly for mobile so it doesn't take up half the screen
+    <footer className="py-8 md:py-10 text-center text-sm text-muted/60 bg-background relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="space-y-2 "
+        // snappy fade-in when the user hits the bottom
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="space-y-2 px-6"
       >
         <p>
           Built and designed by Benny Rohit.
