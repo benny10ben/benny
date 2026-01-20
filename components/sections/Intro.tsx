@@ -51,7 +51,7 @@ export default function Intro() {
                 transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
                 className="text-muted text-lg md:text-xl leading-relaxed max-w-lg"
               >
-                I&apos;m a <span className="text-accent">Technical Lead</span> @ WebbHeads and CS Graduate from GITAM University. 
+                I&apos;m a <span className="text-accent">Founding Engineer</span> @ WebbHeads an athelete from Vizag!
                 I&apos;m fascinated by large-scale, high-impact products and have contributed to building comprehensive 
                 web platforms and full-stack applications.
               </motion.p>
@@ -94,7 +94,7 @@ export default function Intro() {
                 <div className="space-y-6 text-muted text-lg md:text-xl leading-relaxed">
                   <p>
                     Currently, I serve as a <span className="text-accent">Technical Lead</span> at WebbHeads, 
-                    architecting scalable full-stack solutions and leading a technical team of 5+. My expertise spans beyond just web - I have 
+                    architecting scalable full-stack solutions and leading a technical team. My expertise spans beyond just web - I have 
                     engineered AR navigation system, encrypted mobile apps and high-performance backend architectures.
                   </p>
 
