@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const jobs = [
   {
     company: "WebbHeads",
-    role: "Technical Lead",
+    role: "Founding Engineer (Technical Lead)",
     date: "JAN 2026 - PRESENT",
     points: [
       "Architected scalable system infrastructures for high-traffic platforms, optimizing database interactions to reduce load by ~85% through advanced caching strategies.",
