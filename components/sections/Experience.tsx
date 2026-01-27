@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 const jobs = [
   {
     company: "WebbHeads",
-    role: "Founding Engineer (Technical Lead)",
+    role: "Lead Software Engineer",
     date: "JAN 2026 - PRESENT",
     points: [
-      "Architected scalable system infrastructures for high-traffic platforms, optimizing database interactions to reduce load by ~85% through advanced caching strategies.",
+      "Architect scalable system infrastructures for high-traffic platforms, optimizing database interactions to reduce load by ~85% through advanced caching strategies.",
       "Leading the end-to-end technical execution for multiple product lines, driving the roadmap from initial concept to successful market launch.",
       "Streamlined deployment workflows and established core engineering standards, accelerating feature delivery timelines and ensuring production stability.",
     ],
